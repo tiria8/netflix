@@ -118,13 +118,15 @@ def get_by_actor(actor_1, actor_2):
         for i in data:
             all_actors.extend(i[1].split(', '))
 
-        repeated_actors = []
+        actor_count = [] #словарь актер: количество повторений в списке
 
         for i in all_actors:
-            if i == actor_1 or i == actor_2 and all_actors.count(i) <= 2:
+            if i in actor_count or i in [actor_1, actor_2] or all_actors.count(i) <= 2:
                 continue
-            repeated_actors.append(i)
-        return repeated_actors
+            else:
+                actor_count.append(i)
+
+    return actor_count
 
 def get_film(type, release_year, genre):
     with sqlite3.connect('netflix.db') as connection:
@@ -133,3 +135,7 @@ def get_film(type, release_year, genre):
         cursor.execute(query)
 
         return cursor.fetchall()
+
+
+
+print(get_by_actor('Jack Black', 'Dustin Hoffman'))
