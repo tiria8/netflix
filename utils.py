@@ -118,7 +118,7 @@ def get_by_actor(actor_1, actor_2):
         for i in data:
             all_actors.extend(i[1].split(', '))
 
-        actor_count = [] #словарь актер: количество повторений в списке
+        actor_count = []
 
         for i in all_actors:
             if i in actor_count or i in [actor_1, actor_2] or all_actors.count(i) <= 2:
@@ -135,7 +135,3 @@ def get_film(type, release_year, genre):
         cursor.execute(query)
 
         return cursor.fetchall()
-
-
-
-print(get_by_actor('Jack Black', 'Dustin Hoffman'))
