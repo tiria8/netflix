@@ -118,15 +118,15 @@ def get_by_actor(actor_1, actor_2):
         for i in data:
             all_actors.extend(i[1].split(', '))
 
-        actor_count = []
+        repeated_actors = []
 
         for i in all_actors:
-            if i in actor_count or i in [actor_1, actor_2] or all_actors.count(i) <= 2:
+            if i in repeated_actors or i in [actor_1, actor_2] or all_actors.count(i) <= 2:
                 continue
             else:
-                actor_count.append(i)
+                repeated_actors.append(i)
 
-    return actor_count
+    return repeated_actors
 
 def get_film(type, release_year, genre):
     with sqlite3.connect('netflix.db') as connection:
