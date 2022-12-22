@@ -35,8 +35,5 @@ def get_films_by_genre(genre):
     films = get_by_genre(genre)
     return jsonify(films)
 
-
-
-
 if __name__=="__main__":
     app.run(debug=True)

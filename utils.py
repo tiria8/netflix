@@ -1,6 +1,6 @@
 import json
 import sqlite3
-
+from collections import Counter
 
 def get_by_title(title):
     with sqlite3.connect('netflix.db') as connection:
@@ -113,7 +113,18 @@ def get_by_actor(actor_1, actor_2):
         query = f"SELECT COUNT(netflix.cast), `cast` FROM netflix WHERE `cast` LIKE '%{actor_1}%' AND `cast` LIKE '%{actor_2}%' GROUP BY `cast`"
         cursor.execute(query)
 
-        return cursor.fetchall()
+        data = cursor.fetchall()
+        all_actors = []
+        for i in data:
+            all_actors.extend(i[1].split(', '))
+
+        repeated_actors = []
+
+        for i in all_actors:
+            if i == actor_1 or i == actor_2 and all_actors.count(i) <= 2:
+                continue
+            repeated_actors.append(i)
+        return repeated_actors
 
 def get_film(type, release_year, genre):
     with sqlite3.connect('netflix.db') as connection:
